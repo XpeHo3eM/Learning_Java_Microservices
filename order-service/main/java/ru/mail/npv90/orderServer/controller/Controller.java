@@ -1,11 +1,11 @@
-package ru.mail.npv90.orderService.controller;
+package ru.mail.npv90.orderServer.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.mail.npv90.orderService.dal.OrderService;
-import ru.mail.npv90.orderService.dto.OrderDto;
+import ru.mail.npv90.orderServer.dal.OrderService;
+import ru.mail.npv90.orderServer.dto.OrderDto;
 
 @RestController
 @RequestMapping("/api/orders")

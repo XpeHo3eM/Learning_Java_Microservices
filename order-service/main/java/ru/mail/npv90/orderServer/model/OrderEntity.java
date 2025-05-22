@@ -1,12 +1,13 @@
-package ru.mail.npv90.orderService.model;
+package ru.mail.npv90.orderServer.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -20,11 +21,14 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column(name = "file_name", nullable = false)
+    @Column(name = "file_name")
     public String filename;
 
-    @Column(name = "file_url", nullable = false)
+    @Column(name = "file_url")
     public String fileUrl;
+
+    @Column(name = "created_at")
+    public LocalDateTime createdAt;
 
     @Override
     public boolean equals(Object o) {

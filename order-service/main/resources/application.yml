@@ -1,7 +1,6 @@
 spring:
   application:
-    name:
-      order-service
+    name: order-service
   servlet:
     multipart:
       max-file-size: 10MB
@@ -16,3 +15,9 @@ spring:
       schema-locations: classpath:/schema.sql
   jpa:
     show-sql: true
+  s3:
+    key-id:
+    key-secret:
+    region: ru-central1
+    bucket-name: npv90-learning-bucket
+    endpoint: https://storage.yandexcloud.net

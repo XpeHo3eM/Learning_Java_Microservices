@@ -1,4 +1,4 @@
-package ru.mail.npv90.orderService;
+package ru.mail.npv90.orderServer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

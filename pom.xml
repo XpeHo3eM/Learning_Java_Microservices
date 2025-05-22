@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 
-	<name>Microservices</name>
+	<name>Learning_Java_Microservices</name>
 	<modules>
 		<module>order-service</module>
 	</modules>

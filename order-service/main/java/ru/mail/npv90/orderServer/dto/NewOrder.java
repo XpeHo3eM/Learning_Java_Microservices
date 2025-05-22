@@ -1,4 +1,4 @@
-package ru.mail.npv90.orderService.dto;
+package ru.mail.npv90.orderServer.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
