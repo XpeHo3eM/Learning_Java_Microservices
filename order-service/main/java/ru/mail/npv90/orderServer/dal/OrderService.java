@@ -3,8 +3,9 @@ package ru.mail.npv90.orderServer.dal;
 import org.springframework.web.multipart.MultipartFile;
 import ru.mail.npv90.orderServer.dto.OrderDto;
 
-import java.io.IOException;
+import java.util.List;
 
 public interface OrderService {
-    OrderDto download(MultipartFile file);
+    OrderDto upload(MultipartFile file);
+    List<OrderDto> upload(List<MultipartFile> files);
 }

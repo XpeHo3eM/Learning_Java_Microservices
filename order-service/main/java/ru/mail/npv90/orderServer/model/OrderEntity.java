@@ -24,10 +24,10 @@ public class OrderEntity {
     @Column(name = "file_name")
     public String filename;
 
-    @Column(name = "file_url")
-    public String fileUrl;
+    @Column(name = "file_key")
+    public String fileKey;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     public LocalDateTime createdAt;
 
     @Override

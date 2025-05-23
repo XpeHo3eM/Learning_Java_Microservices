@@ -1,7 +1,11 @@
 package ru.mail.npv90.orderServer.dal;
 
-import java.io.InputStream;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 public interface S3Service {
-    public String download(String key, InputStream inputStream, long contentLength, String contentType);
+    String upload(MultipartFile file) throws IOException;
+    List<String> upload(List<MultipartFile> files) throws IOException;
 }

@@ -15,9 +15,11 @@ spring:
       schema-locations: classpath:/schema.sql
   jpa:
     show-sql: true
-  s3:
-    key-id:
-    key-secret:
-    region: ru-central1
-    bucket-name: npv90-learning-bucket
-    endpoint: https://storage.yandexcloud.net
+
+s3:
+  key-id:
+  key-secret:
+  region: ru-central1
+  bucket-name: npv90-learning-java-bucket
+  folder: learning
+  endpoint: https://storage.yandexcloud.net
