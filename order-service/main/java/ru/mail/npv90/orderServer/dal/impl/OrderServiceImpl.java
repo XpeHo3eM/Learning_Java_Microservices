@@ -1,7 +1,7 @@
 package ru.mail.npv90.orderServer.dal.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.mail.npv90.orderServer.dal.OrderService;
@@ -20,8 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-    private final S3Service s3Service;
     private final OrderMapper mapper;
+    private final S3Service s3Service;
+    private final KafkaTemplate producer;
 
     @Override
     public OrderDto upload(MultipartFile file) {
@@ -32,7 +33,10 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException(e);
         }
 
-        return mapper.toDto(orderRepository.save(createOrderEntity(file, fileKey)));
+        OrderEntity entity = orderRepository.save(createOrderEntity(file, fileKey));
+        producer.sendMessage();
+
+        return mapper.toDto(entity);
     }
 
     @Override

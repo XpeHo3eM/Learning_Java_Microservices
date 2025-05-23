@@ -13,8 +13,12 @@ spring:
     init:
       mode: always
       schema-locations: classpath:/schema.sql
-  jpa:
-    show-sql: true
+  kafka:
+    bootstrap:
+      servers: localhost:9092
+    topic:
+      order-requested: order_requested
+      order-created: order_created
 
 s3:
   key-id:
