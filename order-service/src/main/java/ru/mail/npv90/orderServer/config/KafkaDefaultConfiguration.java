@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 @Getter
 public class KafkaDefaultConfiguration {
     @Value("${kafka.bootstrap.server}")
-    private String servers;
-
-    @Value("${kafka.topic.order-requested}")
-    private String orderRequestedTopic;
+    private String bootstrapServers;
 
     @Value("${kafka.topic.order-created}")
     private String orderCreatedTopic;

@@ -3,6 +3,7 @@ package ru.mail.npv90.orderServer.dal.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.mail.npv90.orderServer.dal.OrderService;
 import ru.mail.npv90.orderServer.dal.S3Service;
@@ -18,11 +19,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper mapper;
     private final S3Service s3Service;
-    private final KafkaTemplate producer;
+    private final KafkaOrderProducerService producer;
 
     @Override
     public OrderDto upload(MultipartFile file) {
@@ -33,10 +35,11 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException(e);
         }
 
-        OrderEntity entity = orderRepository.save(createOrderEntity(file, fileKey));
-        producer.sendMessage();
+        OrderEntity orderEntity = orderRepository.save(createOrderEntity(file, fileKey));
+        OrderDto orderDto = mapper.toDto(orderEntity);
+        producer.send(orderDto);
 
-        return mapper.toDto(entity);
+        return orderDto;
     }
 
     @Override
@@ -58,7 +61,11 @@ public class OrderServiceImpl implements OrderService {
             orderEntities.add(createOrderEntity(currentFile, fileKey));
         }
 
-        return mapper.toDto(orderRepository.saveAll(orderEntities));
+        orderEntities = orderRepository.saveAll(orderEntities);
+        List<OrderDto> orderDtos = mapper.toDto(orderEntities);
+        producer.send(orderDtos);
+
+        return orderDtos;
     }
 
     private OrderEntity createOrderEntity(MultipartFile file, String fileKey) {
